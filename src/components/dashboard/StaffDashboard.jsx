@@ -5,14 +5,14 @@ import { OnboardingStatusWidget } from './OnboardingStatusWidget';
 import { ShiftNotificationPage } from './ShiftNotificationPage';
 
 const WEEKLY_ATTENDANCE = [
-{ day: 'Mon', hours: 8.5 },
-{ day: 'Tue', hours: 9.0 },
-{ day: 'Wed', hours: 8.2 },
-{ day: 'Thu', hours: 8.8 },
-{ day: 'Fri', hours: 7.5 } // Early leave
+  { day: 'Mon', hours: 8.5 },
+  { day: 'Tue', hours: 9.0 },
+  { day: 'Wed', hours: 8.2 },
+  { day: 'Thu', hours: 8.8 },
+  { day: 'Fri', hours: 7.5 } // Early leave
 ];
 
-export function StaffDashboard() {
+export function StaffDashboard({ onNavigate }) {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showShiftPage, setShowShiftPage] = useState(false);
@@ -39,7 +39,7 @@ export function StaffDashboard() {
 
   const markAsRead = (id) => {
     const updated = notifications.map((n) =>
-    n.id === id ? { ...n, read: true } : n
+      n.id === id ? { ...n, read: true } : n
     );
     setNotifications(updated);
     localStorage.setItem(`notifications_${currentUserId}`, JSON.stringify(updated));
@@ -74,7 +74,7 @@ export function StaffDashboard() {
           <button
             onClick={() => setShowShiftPage(true)}
             className="px-4 py-2 bg-indigo-50 text-indigo-700 font-bold rounded-lg text-sm border border-indigo-200 flex items-center gap-2 hover:bg-indigo-100 transition-colors">
-            
+
             <CalendarDays size={18} />
             My Shifts
           </button>
@@ -83,10 +83,10 @@ export function StaffDashboard() {
             <button
               onClick={() => setShowNotifications(!showNotifications)}
               className="px-4 py-2 bg-white text-slate-700 font-bold rounded-lg text-sm border border-slate-200 flex items-center gap-2 hover:bg-slate-50 relative">
-              
+
               <Bell size={18} />
               {unreadCount > 0 &&
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs flex items-center justify-center rounded-full border-2 border-white">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs flex items-center justify-center rounded-full border-2 border-white">
                   {unreadCount}
                 </span>
               }
@@ -94,7 +94,7 @@ export function StaffDashboard() {
 
             {/* Notifications Dropdown */}
             {showNotifications &&
-            <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-200 z-50 animate-in fade-in slide-in-from-top-2">
+              <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-xl border border-slate-200 z-50 animate-in fade-in slide-in-from-top-2">
                 <div className="p-4 border-b border-slate-100 flex justify-between items-center">
                   <h3 className="font-bold text-slate-800">Notifications</h3>
                   <button onClick={() => setShowNotifications(false)} className="text-slate-400 hover:text-slate-600">
@@ -103,13 +103,13 @@ export function StaffDashboard() {
                 </div>
                 <div className="max-h-80 overflow-y-auto">
                   {notifications.length === 0 ?
-                <div className="p-8 text-center text-slate-500 text-sm">
+                    <div className="p-8 text-center text-slate-500 text-sm">
                       No new notifications
                     </div> :
 
-                <div className="divide-y divide-slate-50">
+                    <div className="divide-y divide-slate-50">
                       {notifications.map((note) =>
-                  <div key={note.id} className={`p-4 hover:bg-slate-50 transition-colors ${!note.read ? 'bg-blue-50/50' : ''}`}>
+                        <div key={note.id} className={`p-4 hover:bg-slate-50 transition-colors ${!note.read ? 'bg-blue-50/50' : ''}`}>
                           <div className="flex justify-between items-start gap-3">
                             <div onClick={() => markAsRead(note.id)} className="flex-1 cursor-pointer">
                               <p className={`text-sm ${!note.read ? 'font-bold text-slate-800' : 'text-slate-600'}`}>
@@ -120,21 +120,21 @@ export function StaffDashboard() {
                               </p>
                             </div>
                             <button
-                        onClick={() => clearNotification(note.id)}
-                        className="text-slate-400 hover:text-red-500 transition-colors">
-                        
+                              onClick={() => clearNotification(note.id)}
+                              className="text-slate-400 hover:text-red-500 transition-colors">
+
                               <X size={14} />
                             </button>
                           </div>
                         </div>
-                  )}
+                      )}
                     </div>
-                }
+                  }
                 </div>
               </div>
             }
           </div>
-          
+
           <button className="px-4 py-2 bg-green-50 text-green-700 font-bold rounded-lg text-sm border border-green-200 flex items-center gap-2">
             <CheckCircle size={16} /> Punched In (09:00 AM)
           </button>
@@ -178,7 +178,7 @@ export function StaffDashboard() {
           </h3>
           <div className="space-y-3">
             {[1, 2, 3].map((i) =>
-            <div key={i} className="p-3 bg-slate-50 rounded-lg border border-slate-100 hover:border-blue-300 transition-colors cursor-pointer">
+              <div key={i} className="p-3 bg-slate-50 rounded-lg border border-slate-100 hover:border-blue-300 transition-colors cursor-pointer">
                 <div className="flex justify-between mb-1">
                   <span className="text-xs font-bold text-slate-500">#JOB-29{i}</span>
                   <span className="text-xs text-orange-600 font-medium">High Priority</span>
@@ -188,7 +188,10 @@ export function StaffDashboard() {
               </div>
             )}
           </div>
-          <button className="w-full mt-4 py-2 text-sm text-blue-600 font-medium hover:bg-blue-50 rounded-lg transition-colors">
+          <button
+            onClick={() => onNavigate('service')}
+            className="w-full mt-4 py-2 text-sm text-blue-600 font-medium hover:bg-blue-50 rounded-lg transition-colors"
+          >
             View All Tasks
           </button>
         </div>

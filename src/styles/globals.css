@@ -8,3 +8,7 @@ body {
   font-family: var(--font-sans);
   @apply bg-slate-50 text-slate-900;
 }
+
+.fixed.inset-0.z-50.flex.items-center.justify-center.bg-black\/50.backdrop-blur-sm.mb-0.p-4.animate-in.fade-in.duration-200 {
+  margin-bottom: 0px !important;
+}

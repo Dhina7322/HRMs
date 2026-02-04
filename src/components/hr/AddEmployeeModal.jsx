@@ -21,7 +21,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm mb-0 p-4 animate-in fade-in duration-200" >
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-200">
         <div className="sticky top-0 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between z-10">
           <div>
@@ -31,7 +31,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
           <button
             onClick={onClose}
             className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
-            
+
             <X size={20} />
           </button>
         </div>
@@ -40,7 +40,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
           {/* Personal Information */}
           <div className="space-y-4">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-              <User size={16} className="text-blue-600" /> 
+              <User size={16} className="text-blue-600" />
               Personal Information
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -50,10 +50,10 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                   {...register('name', { required: 'Name is required' })}
                   className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   placeholder="e.g. Sarah Wilson" />
-                
+
                 {errors.name && <span className="text-xs text-red-500">{errors.name.message}</span>}
               </div>
-              
+
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">Email Address</label>
                 <div className="relative">
@@ -63,7 +63,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                     type="email"
                     className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     placeholder="sarah@company.com" />
-                  
+
                 </div>
               </div>
 
@@ -75,7 +75,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                     {...register('phone', { required: 'Phone is required' })}
                     className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     placeholder="+1 (555) 000-0000" />
-                  
+
                 </div>
               </div>
 
@@ -85,7 +85,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                   {...register('dob')}
                   type="date"
                   className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                
+
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
           {/* Professional Details */}
           <div className="space-y-4">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-              <Briefcase size={16} className="text-blue-600" /> 
+              <Briefcase size={16} className="text-blue-600" />
               Role & Branch Assignment
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -106,7 +106,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                   <select
                     {...register('branch', { required: 'Branch is required' })}
                     className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none">
-                    
+
                     <option value="">Select Branch...</option>
                     <option value="Downtown">Downtown Branch</option>
                     <option value="Westside">Westside Branch</option>
@@ -121,7 +121,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                 <select
                   {...register('role', { required: 'Role is required' })}
                   className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                  
+
                   <option value="">Select Role...</option>
                   <option value="BRANCH_MANAGER">Branch Manager</option>
                   <option value="SALES_MANAGER">Sales Manager</option>
@@ -138,7 +138,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                     {...register('joinDate', { required: 'Joining Date is required' })}
                     type="date"
                     className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                  
+
                 </div>
               </div>
 
@@ -149,7 +149,7 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
                   type="number"
                   placeholder="0.00"
                   className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-                
+
               </div>
             </div>
           </div>
@@ -159,13 +159,13 @@ export function AddEmployeeModal({ isOpen, onClose, onSubmit }) {
               type="button"
               onClick={onClose}
               className="px-5 py-2.5 text-slate-600 font-medium hover:bg-slate-100 rounded-lg transition-colors">
-              
+
               Cancel
             </button>
             <button
               type="submit"
               className="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
-              
+
               Create Employee
             </button>
           </div>

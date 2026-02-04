@@ -1,42 +1,46 @@
 import React from 'react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell } from
-'recharts';
+  PieChart, Pie, Cell
+} from
+  'recharts';
 import { Users, DollarSign, ShoppingBag, Activity, TrendingUp, AlertCircle, Calendar, UserCheck, UserX } from 'lucide-react';
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
 const ATTENDANCE_COLORS = ['#10b981', '#ef4444', '#94a3b8']; // Green (Present), Red (Leave), Gray (Off)
 
 const SALES_DATA = [
-{ name: 'Mon', sales: 4000 },
-{ name: 'Tue', sales: 3000 },
-{ name: 'Wed', sales: 2000 },
-{ name: 'Thu', sales: 2780 },
-{ name: 'Fri', sales: 1890 },
-{ name: 'Sat', sales: 2390 },
-{ name: 'Sun', sales: 3490 }];
+  { name: 'Mon', sales: 4000 },
+  { name: 'Tue', sales: 3000 },
+  { name: 'Wed', sales: 2000 },
+  { name: 'Thu', sales: 2780 },
+  { name: 'Fri', sales: 1890 },
+  { name: 'Sat', sales: 2390 },
+  { name: 'Sun', sales: 3490 }];
 
 
 const BRANCH_SALES_DETAILS = [
-{ name: 'Downtown Branch', sales: 154000, target: 140000, employees: 45, manager: 'Sarah J.' },
-{ name: 'Westside Hub', sales: 98000, target: 110000, employees: 32, manager: 'Mike T.' },
-{ name: 'North Hills', sales: 86000, target: 80000, employees: 28, manager: 'Jessica L.' },
-{ name: 'East End', sales: 65000, target: 70000, employees: 22, manager: 'David B.' },
-{ name: 'South City', sales: 120000, target: 115000, employees: 35, manager: 'Robert C.' }];
+  { name: 'Downtown Branch', sales: 154000, target: 140000, employees: 45, manager: 'Sarah J.' },
+  { name: 'Westside Hub', sales: 98000, target: 110000, employees: 32, manager: 'Mike T.' },
+  { name: 'North Hills', sales: 86000, target: 80000, employees: 28, manager: 'Jessica L.' },
+  { name: 'East End', sales: 65000, target: 70000, employees: 22, manager: 'David B.' },
+  { name: 'South City', sales: 120000, target: 115000, employees: 35, manager: 'Robert C.' }];
 
 
 const ATTENDANCE_DATA = [
-{ name: 'Present', value: 856 },
-{ name: 'On Leave', value: 42 },
-{ name: 'Weekly Off', value: 136 }];
+  { name: 'Present', value: 856 },
+  { name: 'On Leave', value: 42 },
+  { name: 'Weekly Off', value: 136 }];
 
 
-function StatCard({ title, value, subtext, icon: Icon, trend, colorClass }) {
+function StatCard({ title, value, subtext, icon: Icon, trend, colorClass, onClick }) {
   const isPositive = trend === 'up';
 
   return (
-    <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+    <div
+      onClick={onClick}
+      className={`bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer ${onClick ? 'hover:border-blue-300' : ''}`}
+    >
       <div className="flex justify-between items-start">
         <div>
           <p className="text-sm font-medium text-slate-500 mb-1">{title}</p>
@@ -57,7 +61,7 @@ function StatCard({ title, value, subtext, icon: Icon, trend, colorClass }) {
 
 }
 
-export function SuperAdminDashboard() {
+export function SuperAdminDashboard({ onNavigate }) {
   const totalEmployees = 1034;
   const presentPercentage = Math.round(856 / totalEmployees * 100);
 
@@ -65,9 +69,9 @@ export function SuperAdminDashboard() {
     <div className="space-y-6">
       {/* Top Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Total Revenue" value="$2.4M" subtext="+12.5%" icon={DollarSign} trend="up" colorClass="bg-blue-50 text-blue-600" />
-        <StatCard title="Total Sales" value="3,245" subtext="+8.2%" icon={ShoppingBag} trend="up" colorClass="bg-indigo-50 text-indigo-600" />
-        <StatCard title="Total Staff" value={totalEmployees.toLocaleString()} subtext="+12 new" icon={Users} trend="up" colorClass="bg-orange-50 text-orange-600" />
+        <StatCard title="Total Revenue" value="$2.4M" subtext="+12.5%" icon={DollarSign} trend="up" colorClass="bg-blue-50 text-blue-600" onClick={() => onNavigate('sales')} />
+        <StatCard title="Total Sales" value="3,245" subtext="+8.2%" icon={ShoppingBag} trend="up" colorClass="bg-indigo-50 text-indigo-600" onClick={() => onNavigate('customer-sales')} />
+        <StatCard title="Total Staff" value={totalEmployees.toLocaleString()} subtext="+12 new" icon={Users} trend="up" colorClass="bg-orange-50 text-orange-600" onClick={() => onNavigate('employees')} />
         <StatCard title="Active Branches" value="5" subtext="All operational" icon={Activity} trend="up" colorClass="bg-green-50 text-green-600" />
       </div>
 
@@ -94,7 +98,7 @@ export function SuperAdminDashboard() {
                   cursor={{ fill: '#f8fafc' }}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   formatter={(value) => [`$${value.toLocaleString()}`, '']} />
-                
+
                 <Bar dataKey="sales" fill="#3b82f6" radius={[4, 4, 0, 0]} name="Actual Sales" barSize={30} />
                 <Bar dataKey="target" fill="#cbd5e1" radius={[4, 4, 0, 0]} name="Target Sales" barSize={30} />
               </BarChart>
@@ -106,7 +110,7 @@ export function SuperAdminDashboard() {
         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col">
           <h3 className="text-lg font-bold text-[#190E5D] mb-2">Workforce Status</h3>
           <p className="text-sm text-slate-500 mb-6">Today's attendance overview</p>
-          
+
           <div className="relative flex-1 flex items-center justify-center min-h-[200px]">
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
@@ -118,9 +122,9 @@ export function SuperAdminDashboard() {
                   outerRadius={80}
                   paddingAngle={5}
                   dataKey="value">
-                  
+
                   {ATTENDANCE_DATA.map((entry, index) =>
-                  <Cell key={`cell-${index}`} fill={ATTENDANCE_COLORS[index]} />
+                    <Cell key={`cell-${index}`} fill={ATTENDANCE_COLORS[index]} />
                   )}
                 </Pie>
                 <Tooltip />
@@ -156,7 +160,12 @@ export function SuperAdminDashboard() {
       <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-6 border-b border-slate-100 flex justify-between items-center">
           <h3 className="text-lg font-bold text-[#190E5D]">Branch Performance Overview</h3>
-          <button className="text-sm text-blue-600 font-medium hover:text-blue-700">View Full Report</button>
+          <button
+            onClick={() => onNavigate('reports')}
+            className="text-sm text-blue-600 font-medium hover:text-blue-700"
+          >
+            View Full Report
+          </button>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">

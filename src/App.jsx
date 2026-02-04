@@ -60,9 +60,9 @@ function App() {
     switch (currentView) {
       case 'dashboard':
         if (userRole === 'SERVICE_STAFF' || userRole === 'SALES_MANAGER') {
-          return <StaffDashboard />;
+          return <StaffDashboard onNavigate={setCurrentView} />;
         }
-        return <SuperAdminDashboard />;
+        return <SuperAdminDashboard onNavigate={setCurrentView} />;
       case 'news':
         return <NewsFeed />;
       case 'employees':
@@ -98,24 +98,23 @@ function App() {
           </div>);
 
       default:
-        return <SuperAdminDashboard />;
+        return <SuperAdminDashboard onNavigate={setCurrentView} />;
     }
   };
 
   return (
     <ToastProvider>
       <CustomCursor />
-      <div className="flex h-screen font-sans" style={{ backgroundColor: '#FBBC05', color: '#190E5D' }}>
+      <div className="flex h-screen font-sans bg-slate-50 text-slate-900">
         <Sidebar
           currentView={currentView}
           onNavigate={setCurrentView}
           userRole={userRole}
           onLogout={handleLogout} />
-        
-        
+
         <div className="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
-          <Header title={currentView} userRole={userRole} />
-          
+          <Header title={currentView} userRole={userRole} onNavigate={setCurrentView} />
+
           <main className="flex-1 overflow-y-auto p-8">
             {renderContent()}
           </main>
